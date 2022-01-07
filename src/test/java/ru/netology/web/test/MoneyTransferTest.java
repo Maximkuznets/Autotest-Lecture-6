@@ -45,10 +45,19 @@ public class MoneyTransferTest {
         val expectedResultFirstCard = dashboardPage.getFirstCardBalance() - amountValue;
         val expectedResultSecondCard = dashboardPage.getSecondCardBalance() + amountValue;
         val transferPage = dashboardPage.secondCardDeposit();
-        transferPage.updateBalance(amountValue, DataHelper.getFirstCard());
-        val actualResultsFirstCard = dashboardPage.getFirstCardBalance();
-        val actualResultsSecondCard = dashboardPage.getSecondCardBalance();
-        assertEquals(expectedResultFirstCard, actualResultsFirstCard);
-        assertEquals(expectedResultSecondCard, actualResultsSecondCard);
+        //   проверка условия
+
+        if (expectedResultFirstCard < 0) {
+            transferPage.amountExceedsBalance(amountValue, DataHelper.getFirstCard());
+            val actualResultsFirstCard = dashboardPage.getFirstCardBalance();
+            val actualResultsSecondCard = dashboardPage.getSecondCardBalance();
+        } else {
+
+            transferPage.updateBalance(amountValue, DataHelper.getFirstCard());
+            val actualResultsFirstCard = dashboardPage.getFirstCardBalance();
+            val actualResultsSecondCard = dashboardPage.getSecondCardBalance();
+            assertEquals(expectedResultFirstCard, actualResultsFirstCard);
+            assertEquals(expectedResultSecondCard, actualResultsSecondCard);
+        }
     }
 }
