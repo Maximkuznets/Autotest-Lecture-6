@@ -24,14 +24,4 @@ public class TransferPage {
         return new DashboardPage();
     }
 
-    // если сумма перевода больше, чем есть на балансе карты
-    public DashboardPage amountExceedsBalance(int amountValue, DataHelper.CardInfo cardInfo) {
-        amountField.setValue(String.valueOf(amountValue));
-        fromField.setValue(cardInfo.getCardNumber());
-        //  transferButton.click();
-        $(withText("Ошибка, недостаточно средств на карте для указанной суммы перевода")).shouldBe(Condition.visible);
-        return new DashboardPage();
-    }
-
-
 }
